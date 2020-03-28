@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99be57db-f51e-4f0e-ba03-c52cfdc057d2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Authentication/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/create.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/colors/color.go" beforeDir="false" afterPath="$PROJECT_DIR$/Colors/color.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +39,11 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -80,5 +89,9 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1324" height="202" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1584757639496" />
+    <state x="312" y="-839" width="670" height="676" key="search.everywhere.popup" timestamp="1584872941495">
+      <screen x="-313" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="312" y="-839" width="670" height="676" key="search.everywhere.popup/-313.-1080.1920.1080/0.0.1366.768@-313.-1080.1920.1080" timestamp="1584872941495" />
   </component>
 </project>
