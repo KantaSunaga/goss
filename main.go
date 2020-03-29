@@ -1,15 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"github.com/aybabtme/rgbterm"
-	"golang.org/x/crypto/ssh/terminal"
-	"log"
+	"goss/Colors"
+	"goss/Commands"
 	"os"
-	"syscall"
-
 	"github.com/urfave/cli"
+	"fmt"
 )
 
 func main() {
@@ -24,20 +20,8 @@ func main() {
 			Aliases: []string{"a"},
 			Usage:   "add a task to the list",
 			Action: func(c *cli.Context) error {
-				fmt.Println("Input your github ID:")
-				scanner := bufio.NewScanner(os.Stdin)
-				scanner.Scan()
-				username := scanner.Text()
-				fmt.Println("Input your github password:")
-				password, err := terminal.ReadPassword(int(syscall.Stdin))
-				if err != nil {
-					log.Fatal("なんか起きた")
-				}
-				var r, g, b uint8
-				r, g, b = 252, 255, 43
-				word := string(password)
-				coloredWord := rgbterm.FgString(word, r, g, b)
-				fmt.Println("Oh!", coloredWord, "hello!",username)
+				Commands.Create(c.Args().Get(0),c.Args().Get(1))
+				fmt.Println( Colors.Green("ALL success!!") )
 				return nil
 			},
 		},
