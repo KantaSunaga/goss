@@ -19,8 +19,8 @@ func Create(username string, repName string) (err error){
 
 		log.Fatal(Colors.Red("Fork faild"))
 	}
-	repository := clone(endpoint, repName)
-	repository.remoteAdd(username, repName)
+	_=clone(endpoint, repName)
+	//repository.remoteAdd(username, repName)
 	fmt.Println("ここまで来た3")
 	return
 }
@@ -53,7 +53,7 @@ func Create(username string, repName string) (err error){
 	 return  *repository.CloneURL, err
  }
 
-func (r *git.Repository )remoteAdd(username string, repName string) {
+func (r git.Repository )remoteAdd(username string, repName string) {
 	 _, err := r.CreateRemote(&config.RemoteConfig{
 		Name: "upstream",
 		URLs: []string{"https://github.com/" + username + "/" + repName + ".git"},
