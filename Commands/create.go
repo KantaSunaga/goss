@@ -7,42 +7,35 @@ import (
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"
 	"goss/Authentication"
-	"goss/Colors"
 	"log"
 	"os"
 )
 
 func Create(username string, repName string) (err error){
-	endpoint, err := fork(username, repName)
-	if err != nil{
-		fmt.Println("ここですお111")
-
-		log.Fatal(Colors.Red("Fork faild"))
-	}
-	_=clone(endpoint, repName)
-	//repository.remoteAdd(username, repName)
-	fmt.Println("ここまで来た3")
+	endpoint := fork(username, repName)
+	repository:=clone(endpoint, repName)
+	repository.remoteAdd(username, repName)
 	return
 }
 
- func clone(endpoint string, repName string) (repository *git.Repository) {
+ func clone(endpoint string, repName string) (rw *RepoWrapper) {
+	 fmt.Println("Clone開始")
 	 path, err := os.Getwd()
 	 path = path + "/" + repName
-	 fmt.Println(path)
-	 fmt.Println("ここまで来た")
-	 repository, err = git.PlainClone(path, true, &git.CloneOptions{
+	 repository, err := git.PlainClone(path, true, &git.CloneOptions{
 		URL:               endpoint,
 	 })
-	 fmt.Println("ここまで来た33333")
 	 if err != nil {
-	 	fmt.Println("エラーだよ")
-	 	log.Fatal(err)
+	 	log.Println(err)
+	 	log.Fatal("cloneに失敗")
 	 }
-	 fmt.Println("ここまで来た2")
-	return repository
+	 fmt.Println("Clone完了" )
+	 rw = &RepoWrapper{repository}
+	return rw
  }
 
- func fork(userName string, repName string) (cloneUrl string ,err error){
+ func fork(userName string, repName string) (cloneUrl string){
+ 	 fmt.Println("Fork開始")
 	 ctx := context.Background()
 	 tc := Authentication.Create()
 	 client := github.NewClient(tc)
@@ -50,20 +43,25 @@ func Create(username string, repName string) (err error){
 		 Organization: "",
 	 }
 	 repository,_,_:= client.Repositories.CreateFork(ctx ,userName,repName, opt)
-	 return  *repository.CloneURL, err
+	 fmt.Println("Fork完了")
+	 return  *repository.CloneURL
  }
 
-func (r git.Repository )remoteAdd(username string, repName string) {
-	 _, err := r.CreateRemote(&config.RemoteConfig{
+ type RepoWrapper struct {
+ 	repo *git.Repository
+}
+
+func (rw *RepoWrapper )remoteAdd(username string, repName string) {
+	 fmt.Println("Upstreamの追加開始")
+	 _, err := rw.repo.CreateRemote(&config.RemoteConfig{
 		Name: "upstream",
 		URLs: []string{"https://github.com/" + username + "/" + repName + ".git"},
 	})
 	 if err != nil {
-	 	fmt.Printf("remote追加中にエラー")
+	 	log.Println(err)
+	 	log.Fatalln("Upstreamの追加に失敗")
 	 }
+	fmt.Println("Upstreamの追加完了")
 	return
 }
 
-func sample() {
-
-}
